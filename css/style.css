@@ -13,19 +13,29 @@ main {
 }
 
 header {
-  height: 120px;
-  padding-top: 60px;
-  text-align: center;
+  width: 100%;
+  max-width: 450px;
+  padding-top: 10px;
+  height: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid grey;
 }
 
 .board {
-  width: 100%;
+  width: 80%;
   max-width: 300px;
+  max-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .game-row {
   display: flex;
   justify-content: space-between;
+  padding-top: 1%;
 }
 
 .game-square {
@@ -33,11 +43,11 @@ header {
   padding-bottom: 17%;
   border: 2px solid black;
   border-radius: 2px;
-  margin-bottom: 15px;
 }
 
 .keyboard {
   height: 200px;
+  /* max-height: 30vh; */
   width: 95%;
   max-width: 500px;
 }
