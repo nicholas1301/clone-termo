@@ -1,3 +1,8 @@
+html {
+  font-family: Helvetica, sans-serif;
+  font-weight: 800;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -5,11 +10,11 @@ body {
 }
 
 main {
-  /* max-width: 600px; */
   width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 
 header {
@@ -24,47 +29,63 @@ header {
 }
 
 .board {
-  width: 80%;
-  max-width: 300px;
-  max-height: 40vh;
+  width: 90%;
+  max-width: 260px;
+  height: 50vh;
+  max-height: 320px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 5px;
 }
 
 .game-row {
+  height: 7.8vh;
+  max-height: 60px;
   display: flex;
   justify-content: space-between;
-  padding-top: 1%;
 }
 
 .game-square {
   width: 17%;
-  padding-bottom: 17%;
-  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  border: 2px solid  #D3D6DA;
   border-radius: 2px;
 }
 
 .keyboard {
-  height: 200px;
-  /* max-height: 30vh; */
+  margin-top: 2vh;
+  height: 32vh;
   width: 95%;
-  max-width: 500px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .keyboard-row {
   width: 100%;
-  height: 50px;
+  height: 9.4vh;
+  gap: 0.5%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
+}
+
+.kb-row-2 {
+  max-width: 90%;
 }
 
 .key {
-  background-color: grey;
+  background-color: #D3D6DA;
+  color: black;
   text-align: center;
-  padding-top: 12px;
   flex-grow: 1;
-  border: 1px solid black;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
