@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  /* max-width: 600px; */
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  height: 120px;
+  padding-top: 60px;
+  text-align: center;
+}
+
+.board {
+  width: 100%;
+  max-width: 300px;
+}
+
+.game-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-square {
+  width: 17%;
+  padding-bottom: 17%;
+  border: 2px solid black;
+  border-radius: 2px;
+  margin-bottom: 15px;
+}
+
+.keyboard {
+  height: 200px;
+  width: 95%;
+  max-width: 500px;
+}
+
+.keyboard-row {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.key {
+  background-color: grey;
+  text-align: center;
+  padding-top: 12px;
+  flex-grow: 1;
+  border: 1px solid black;
+  border-radius: 5px;
+}
