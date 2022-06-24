@@ -13,30 +13,38 @@ const answer = 'RATOS';
 // add event listener for all keyboard keys
 const keys = document.querySelectorAll('.key');
 keys.forEach(key => key.addEventListener('click', keyPress));
+let lastKeyPressed = '';
+const guesses = [];
 
 function keyPress(event) {
   const letter = event.target.innerText; // pode ser 'ENTER' ou ''
   const activeSquare = getActiveSquare();
-  if (+activeSquare.id % 5 === 0) {
-    // ultimo press foi enter?
-    // entao ta livre pra escrever qualquer letra
+  const isBackspace = event.target.id === 'backspace' || event.target.nodeName === 'IMG';
 
-    // se não, a única tecla que pode ser apertada é enter
+  // requires ENTER after 5 letters:
+  if (+activeSquare.id % 5 === 0 && activeSquare.id > 0) { // when we complete a row
+    // if last key pressed was not enter, then you can't type
+    // only enter or backspace allowed
+    if (lastKeyPressed !== 'enter' && event.target.id !== 'enter' && !isBackspace)
+      return;
+  } 
 
-  }
-
-  if (event.target.id === 'backspace' || event.target.nodeName === 'IMG') {
+  if (isBackspace) {
+    // something involving guesses.length -> gives you the current row
+    if (activeSquare.id % 5 === 0) return;
     eraseLetter();
+    lastKeyPressed = 'backspace';
     return;
   }
 
   if (event.target.id === 'enter') {
     enterWord();
+    lastKeyPressed = 'enter';
     return;
   }
 
-
-  activeSquare.innerText = event.target.innerText;
+  lastKeyPressed = event.target.id;
+  activeSquare.innerText = letter;
 }
 
 function getActiveSquare() {
