@@ -1,10 +1,11 @@
-const dicionario = palavras.filter(palavra => palavra.length === 5)
+const validWordList = palavras.filter(palavra => palavra.length === 5)
                            .filter(palavra => !palavra.includes('.'))
                            .filter(palavra => !palavra.includes('-'))
-
+                           .map(palavra => palavra.toUpperCase())
+console.log(validWordList)
 
 // create dictionary
-const validWordList = ['RATOS', 'PERDA', 'LEOES', 'CASAS', 'FRODO'];
+// const validWordList = ['RATOS', 'PERDA', 'LEOES', 'CASAS', 'FRODO'];
 
 // shuffle the dictionary for a 5 letter word to be the answer
 const answer = 'RATOS';
@@ -102,20 +103,32 @@ function displayColors(guess, row) {
     squares.push(square);
   }
 
-  let seen = '';
+  //iterar por todos, pintar os verdes
+  let notGreen = '';
   for (let i = 0; i < guess.length; i++) {
-    seen += guess[i];
-
-    if (answer[i] === guess[i]) {
+    if (guess[i] === answer[i]) {
       squares[i].classList.add('green');
-      continue;
+      document.getElementById(`${guess[i]}`).classList.add('green');
+    } else {
+      notGreen += answer[i];
     }
-
-    if (answer.includes(guess[i]) && !seen.slice(0,-1).includes(guess[i])) {
-      squares[i].classList.add('yellow');
-      continue;
-    }
-
-    squares[i].classList.add('grey');
   }
+  //iterar por todos, pintar os amarelos
+  for (let i = 0; i < guess.length; i++) {
+    if (!squares[i].classList.contains('green')) {
+      if (notGreen.includes(guess[i]) ) {
+        squares[i].classList.add('yellow');
+        const key = document.getElementById(`${guess[i]}`);
+        if (!key.classList.contains('green')) {
+          document.getElementById(`${guess[i]}`).classList.add('yellow');
+        }
+        
+
+      } else {
+        squares[i].classList.add('grey');
+        document.getElementById(`${guess[i]}`).classList.add('grey');
+      }
+    }   
+  }
+
 }

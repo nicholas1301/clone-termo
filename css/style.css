@@ -56,24 +56,6 @@ header {
 
 }
 
-.grey {
-  background-color: #787C7E;
-  color: white;
-  border: 2px solid #787C7E;
-}
-
-.green {
-  background-color: #6AAA64;
-  color: white;
-  border: 2px solid #6AAA64;
-}
-
-.yellow {
-  background-color: #C9B458;
-  color: white;
-  border: 2px solid #C9B458;
-}
-
 .keyboard {
   margin-top: 2vh;
   height: 32vh;
@@ -107,4 +89,22 @@ header {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.grey {
+  background-color: #787C7E;
+  color: white;
+  border: 2px solid #787C7E;
+}
+
+.green {
+  background-color: #6AAA64;
+  color: white;
+  border: 2px solid #6AAA64;
+}
+
+.yellow {
+  background-color: #C9B458;
+  color: white;
+  border: 2px solid #C9B458;
 }
