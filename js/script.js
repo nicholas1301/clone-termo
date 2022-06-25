@@ -13,37 +13,32 @@ const answer = 'RATOS';
 // add event listener for all keyboard keys
 const keys = document.querySelectorAll('.key');
 keys.forEach(key => key.addEventListener('click', keyPress));
-let lastKeyPressed = '';
+
 const guesses = [];
 
 function keyPress(event) {
-  const letter = event.target.innerText; // pode ser 'ENTER' ou ''
+  const letter = event.target.innerText;
   const activeSquare = getActiveSquare();
+  const row = Math.floor(activeSquare.id / 5);
   const isBackspace = event.target.id === 'backspace' || event.target.nodeName === 'IMG';
 
-  // requires ENTER after 5 letters:
-  if (+activeSquare.id % 5 === 0 && activeSquare.id > 0) { // when we complete a row
-    // if last key pressed was not enter, then you can't type
-    // only enter or backspace allowed
-    if (lastKeyPressed !== 'enter' && event.target.id !== 'enter' && !isBackspace)
+  // 
+  if (activeSquare.id % 5 === 0 && activeSquare.id > 0) {
+    if (guesses.length < row && event.target.id !== 'enter' && !isBackspace)
       return;
   } 
 
-  if (isBackspace) {
-    // something involving guesses.length -> gives you the current row
-    if (activeSquare.id % 5 === 0) return;
+  if (isBackspace) {  
+    if (activeSquare.id % 5 === 0 && guesses.length == row) return; //can't erase previous row
     eraseLetter();
-    lastKeyPressed = 'backspace';
     return;
   }
 
   if (event.target.id === 'enter') {
     enterWord();
-    lastKeyPressed = 'enter';
     return;
   }
 
-  lastKeyPressed = event.target.id;
   activeSquare.innerText = letter;
 }
 
@@ -66,16 +61,25 @@ function eraseLetter() {
 
 function enterWord() {
   const firstEmpty = getActiveSquare();
-  if (+firstEmpty.id % 5 !== 0) {
+  if (firstEmpty.id % 5 !== 0) {
     alert('not enough letters');
     return;
   }
-
+  const row = firstEmpty.id/5 - 1;
   const guess = getGuess();
+
+  if (guess === answer) {
+    displayColors(guess, row);
+    alert('correct, you win!');
+    return;
+  }
+
   if (!validWordList.includes(guess)) {
-    console.log(guess);
     alert('not a valid word');
     return;
+  } else {
+    guesses.push(guess);
+    displayColors(guess, row);
   }
 }
 
@@ -88,4 +92,30 @@ function getGuess() {
     guess += square.innerText;
   }
   return guess;
+}
+
+function displayColors(guess, row) {
+  const firstSquareId = row*5;
+  const squares = []; //array with the 5 game-squares whose color we want to change
+  for (let i = 0; i < 5; i++) { 
+    const square = document.getElementById(`${i+firstSquareId}`);
+    squares.push(square);
+  }
+
+  let seen = '';
+  for (let i = 0; i < guess.length; i++) {
+    seen += guess[i];
+
+    if (answer[i] === guess[i]) {
+      squares[i].classList.add('green');
+      continue;
+    }
+
+    if (answer.includes(guess[i]) && !seen.slice(0,-1).includes(guess[i])) {
+      squares[i].classList.add('yellow');
+      continue;
+    }
+
+    squares[i].classList.add('grey');
+  }
 }

@@ -25,7 +25,7 @@ header {
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid rgb(209, 209, 209);
 }
 
 .board {
@@ -53,7 +53,25 @@ header {
   align-items: center;
   font-size: 28px;
   border: 2px solid  #D3D6DA;
-  border-radius: 2px;
+
+}
+
+.grey {
+  background-color: #787C7E;
+  color: white;
+  border: 2px solid #787C7E;
+}
+
+.green {
+  background-color: #6AAA64;
+  color: white;
+  border: 2px solid #6AAA64;
+}
+
+.yellow {
+  background-color: #C9B458;
+  color: white;
+  border: 2px solid #C9B458;
 }
 
 .keyboard {
