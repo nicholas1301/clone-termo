@@ -30,7 +30,7 @@ header {
 
 .board {
   width: 90%;
-  max-width: 260px;
+  max-width: 250px;
   height: 50vh;
   max-height: 320px;
   min-height: 200px;
@@ -108,3 +108,4 @@ header {
   color: white;
   border: 2px solid #C9B458;
 }
+

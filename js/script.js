@@ -1,7 +1,15 @@
+// TO DO:
+// popup de instruções
+// animações
+// criar uma lista limitada para sorteio
+
 const validWordList = palavras.map(palavra => palavra.toUpperCase());
+const wordListComAcento = validWordList.filter(word => hasAcento(word));
+const wordListComAcentoSemAcento = wordListComAcento.map(word => removeAcentos(word));
 
 const randomIdx = Math.floor(Math.random() * validWordList.length);
 const answer = validWordList[randomIdx];
+const answerSemAcentos = removeAcentos(answer);
 console.log(answer);
 
 // add event listener for all keyboard keys
@@ -12,7 +20,7 @@ const guesses = [];
 
 function keyPress(event) {
 
-  if (guesses.includes(answer)) return;
+  if (guesses.includes(answerSemAcentos)) return;
 
   const letter = event.target.innerText;
   const activeSquare = getActiveSquare();
@@ -65,14 +73,13 @@ function enterWord() {
   const row = firstEmpty.id/5 - 1;
   const guess = getGuess();
 
-  if (guess === answer) {
+  if (guess === answerSemAcentos) {
     guesses.push(guess);
     displayColors(guess, row);
-    alert('ganhou!');
     return;
   }
 
-  if (!validWordList.includes(guess)) {
+  if (!validWordList.includes(guess) && !wordListComAcentoSemAcento.includes(guess)) {
     alert('palavra inválida');
     return;
   } else {
@@ -93,24 +100,25 @@ function getGuess() {
 }
 
 function displayColors(guess, row) {
-  const firstSquareId = row*5;
-  const squares = []; //array with the 5 game-squares whose color we want to change
-  for (let i = 0; i < 5; i++) { 
-    const square = document.getElementById(`${i+firstSquareId}`);
-    squares.push(square);
+  const squares = getSquares(row);
+  const guessSemAcento = removeAcentos(guess);
+  const guessComAcento = recoverAcentos(guess);
+
+  if (hasAcento(guessComAcento)) {
+    correctDisplayForAcentos(guessComAcento, row);
   }
 
   //iterar por todos, pintar os verdes
   let notGreen = '';
   for (let i = 0; i < guess.length; i++) {
-    if (guess[i] === answer[i]) {
+    if (guess[i] === answerSemAcentos[i]) {
       squares[i].classList.add('green');
       document.getElementById(`${guess[i]}`).classList.add('green');
     } else {
-      notGreen += answer[i];
+      notGreen += answerSemAcentos[i];
     }
   }
-  //iterar por todos, pintar os amarelos
+  //iterar por todos, pintar os amarelos e cinzas
   for (let i = 0; i < guess.length; i++) {
     if (!squares[i].classList.contains('green')) {
       if (notGreen.includes(guess[i]) ) {
@@ -128,4 +136,49 @@ function displayColors(guess, row) {
     }   
   }
 
+}
+
+function correctDisplayForAcentos(guessComAcento, row) {
+  const squares = getSquares(row);
+  for (let i = 0; i < 5; i++) {
+    squares[i].innerText = guessComAcento[i];
+  }
+}
+
+function getSquares(row) {
+  const squares = []; //array with the 5 game-squares whose color we want to change
+  for (let i = 0; i < 5; i++) { 
+    const square = document.getElementById(`${i+row*5}`);
+    squares.push(square);
+  }
+  return squares;
+}
+
+function hasAcento(word) {
+  const acentos = 'ÁÃÂÉÊÍÎÓÔÕÚÇ';
+  return word.split('').some(letter => acentos.includes(letter));
+}
+
+function removeAcentos(word) {
+  const acentos = 'ÁÃÂÉÊÍÎÓÔÕÚÇ';
+  const letters = 'AAAEEIIOOOUC';
+  let desacentuada = '';
+  for (let i = 0; i < word.length; i++) {
+    if (acentos.includes(word[i])) {
+      let idx = acentos.indexOf(word[i]);
+      desacentuada += letters[idx];
+    } else {
+      desacentuada += word[i];
+    }
+  }
+  return desacentuada;
+}
+
+function recoverAcentos(word) {
+  if (wordListComAcentoSemAcento.includes(word)) {
+    let idx = wordListComAcentoSemAcento.indexOf(word);
+    return wordListComAcento[idx];
+  } else {
+    return word;
+  }
 }
