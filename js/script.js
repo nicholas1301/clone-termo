@@ -1,4 +1,5 @@
 // TO DO:
+// answer = 'GATOS', 'CASAS' => ambos os As ficam amarelos
 // popup de instruções
 // animações
 // criar uma lista limitada para sorteio
@@ -110,21 +111,24 @@ function displayColors(guess, row) {
   }
 
   //iterar por todos, pintar os verdes
-  let notGreen = '';
+  let notGreen = [];
   for (let i = 0; i < guess.length; i++) {
     if (guess[i] === answerSemAcentos[i]) {
       squares[i].classList.add('green');
       document.getElementById(`${guess[i]}`).classList.add('green');
     } else {
-      notGreen += answerSemAcentos[i];
+      notGreen.push(answerSemAcentos[i]);
     }
   }
+
   //iterar por todos, pintar os amarelos e cinzas
   for (let i = 0; i < guess.length; i++) {
     if (!squares[i].classList.contains('green')) {
       if (notGreen.includes(guess[i]) ) {
         squares[i].classList.add('yellow');
-        
+        let idx = notGreen.indexOf(guess[i]);
+        notGreen.splice(idx, 1);
+
         const key = document.getElementById(`${guess[i]}`);
         if (!key.classList.contains('green')) {
           document.getElementById(`${guess[i]}`).classList.add('yellow');
