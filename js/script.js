@@ -11,6 +11,9 @@ keys.forEach(key => key.addEventListener('click', keyPress));
 const guesses = [];
 
 function keyPress(event) {
+
+  if (guesses.includes(answer)) return;
+
   const letter = event.target.innerText;
   const activeSquare = getActiveSquare();
   const row = Math.floor(activeSquare.id / 5);
@@ -63,6 +66,7 @@ function enterWord() {
   const guess = getGuess();
 
   if (guess === answer) {
+    guesses.push(guess);
     displayColors(guess, row);
     alert('ganhou!');
     return;
@@ -72,7 +76,7 @@ function enterWord() {
     alert('palavra inválida');
     return;
   } else {
-    guesses.push(guess);
+    if (!guesses.includes(guess)) guesses.push(guess);
     displayColors(guess, row);
   }
 }
