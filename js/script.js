@@ -1,15 +1,8 @@
-const validWordList = palavras.filter(palavra => palavra.length === 5)
-                           .filter(palavra => !palavra.includes('.'))
-                           .filter(palavra => !palavra.includes('-'))
-                           .map(palavra => palavra.toUpperCase())
-console.log(validWordList)
+const validWordList = palavras.map(palavra => palavra.toUpperCase());
 
-// create dictionary
-// const validWordList = ['RATOS', 'PERDA', 'LEOES', 'CASAS', 'FRODO'];
-
-// shuffle the dictionary for a 5 letter word to be the answer
-const answer = 'RATOS';
-
+const randomIdx = Math.floor(Math.random() * validWordList.length);
+const answer = validWordList[randomIdx];
+console.log(answer);
 
 // add event listener for all keyboard keys
 const keys = document.querySelectorAll('.key');
@@ -63,7 +56,7 @@ function eraseLetter() {
 function enterWord() {
   const firstEmpty = getActiveSquare();
   if (firstEmpty.id % 5 !== 0) {
-    alert('not enough letters');
+    alert('palavra inválida');
     return;
   }
   const row = firstEmpty.id/5 - 1;
@@ -71,12 +64,12 @@ function enterWord() {
 
   if (guess === answer) {
     displayColors(guess, row);
-    alert('correct, you win!');
+    alert('ganhou!');
     return;
   }
 
   if (!validWordList.includes(guess)) {
-    alert('not a valid word');
+    alert('palavra inválida');
     return;
   } else {
     guesses.push(guess);
@@ -118,11 +111,11 @@ function displayColors(guess, row) {
     if (!squares[i].classList.contains('green')) {
       if (notGreen.includes(guess[i]) ) {
         squares[i].classList.add('yellow');
+        
         const key = document.getElementById(`${guess[i]}`);
         if (!key.classList.contains('green')) {
           document.getElementById(`${guess[i]}`).classList.add('yellow');
         }
-        
 
       } else {
         squares[i].classList.add('grey');
