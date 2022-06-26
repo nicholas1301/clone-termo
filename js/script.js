@@ -7,8 +7,9 @@ const validWordList = palavras.map(palavra => palavra.toUpperCase());
 const wordListComAcento = validWordList.filter(word => hasAcento(word));
 const wordListComAcentoSemAcento = wordListComAcento.map(word => removeAcentos(word));
 
-const randomIdx = Math.floor(Math.random() * validWordList.length);
-const answer = validWordList[randomIdx];
+const listaSorteio = ['GATOS', 'VIDAS', 'LEÕES', 'MARCA', 'TRAPO', 'LINDO', 'VERDE', 'PRETO', 'FRUTA', 'ÚTERO', 'BARRA', 'COBRE', 'CORPO', 'FOCAR', 'HUMOR', 'MORRO', 'VOGAL'];
+const randomIdx = Math.floor(Math.random() * listaSorteio.length);
+const answer = listaSorteio[randomIdx];
 const answerSemAcentos = removeAcentos(answer);
 console.log(answer);
 
