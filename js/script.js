@@ -5,8 +5,6 @@ const validWordList = palavras.map(palavra => palavra.toUpperCase());
 const wordListComAcento = validWordList.filter(word => hasAcento(word));
 const wordListComAcentoSemAcento = wordListComAcento.map(word => removeAcentos(word));
 
-
-
 function pickAnswer() {
   const listaSorteio = ['GATOS', 'VIDAS', 'LEÕES', 'MARCA', 'TRAPO', 'LINDO', 'VERDE', 'PRETO', 'FRUTA', 'ÚTERO', 'BARRA', 'COBRE', 'CORPO', 'FOCAR', 'HUMOR', 'MORRO', 'VOGAL', 'CHATO', 'ROLHA', 'GRAMA', 'FIBRA', 'CITAR', 'BOLAS', 'BRASA', 'MILHO', 'PEDIR', 'REFÉM', 'SINAL', 'TREZE', 'VISTA', 'CHAMA', 'AMEBA', 'TELÃO', 'RITMO', 'PADRE', 'MUITO', 'GANHO'];
   const randomIdx = Math.floor(Math.random() * listaSorteio.length);
@@ -39,7 +37,7 @@ function keyPress(event) {
   } 
 
   if (isBackspace) {  
-    if (activeSquare.id % 5 === 0 && guesses.length == row) return; //can't erase previous row
+    if (activeSquare && activeSquare.id % 5 === 0 && guesses.length == row) return; //can't erase previous row
     eraseLetter();
     return;
   }
@@ -48,8 +46,8 @@ function keyPress(event) {
     enterWord();
     return;
   }
-
-  activeSquare.innerText = letter;
+  if (activeSquare) activeSquare.innerText = letter;
+  
 }
 
 function getActiveSquare() {
@@ -69,6 +67,7 @@ function eraseLetter() {
       return;
     }
   }
+  allSquares[29].innerText = '';
 }
 
 function displayPalavraInvalida() {
@@ -85,7 +84,6 @@ function enterWord() {
   }
   const row = firstEmpty == undefined? 5 : firstEmpty.id/5 - 1;
   const guess = getGuess();
-  console.log(guess);
   if (guess === answerSemAcentos) {
     guesses.push(guess);
     displayColors(guess, row);
