@@ -13,7 +13,7 @@ function pickAnswer() {
 }
 const answer = pickAnswer();
 const answerSemAcentos = removeAcentos(answer);
-document.querySelector('.answer').innerText = answer;
+// document.querySelector('.answer').innerText = answer;
 
 // add event listener for all keyboard keys
 const keys = document.querySelectorAll('.key');
@@ -87,7 +87,7 @@ function enterWord() {
   if (guess === answerSemAcentos) {
     guesses.push(guess);
     displayColors(guess, row);
-    setTimeout(() => document.querySelector('.answer').classList.remove('hidden'), 100);
+    showAnswer();
     return;
   }
 
@@ -216,4 +216,10 @@ function toggleInstructions() {
     instructions.classList.remove('up');
     instructions.classList.add('drop-down');
   }
+}
+
+function showAnswer() {
+  const answerDiv = document.querySelector('.answer');
+  answerDiv.innerText = answer;
+  setTimeout(() => answerDiv.classList.remove('hidden'), 100);
 }
