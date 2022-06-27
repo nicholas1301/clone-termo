@@ -1,16 +1,21 @@
 // TO DO:
 // animações
-// criar uma lista limitada para sorteio
 
 const validWordList = palavras.map(palavra => palavra.toUpperCase());
 const wordListComAcento = validWordList.filter(word => hasAcento(word));
 const wordListComAcentoSemAcento = wordListComAcento.map(word => removeAcentos(word));
 
-const listaSorteio = ['GATOS', 'VIDAS', 'LEÕES', 'MARCA', 'TRAPO', 'LINDO', 'VERDE', 'PRETO', 'FRUTA', 'ÚTERO', 'BARRA', 'COBRE', 'CORPO', 'FOCAR', 'HUMOR', 'MORRO', 'VOGAL'];
-const randomIdx = Math.floor(Math.random() * listaSorteio.length);
-const answer = listaSorteio[randomIdx];
+
+
+function pickAnswer() {
+  const listaSorteio = ['GATOS', 'VIDAS', 'LEÕES', 'MARCA', 'TRAPO', 'LINDO', 'VERDE', 'PRETO', 'FRUTA', 'ÚTERO', 'BARRA', 'COBRE', 'CORPO', 'FOCAR', 'HUMOR', 'MORRO', 'VOGAL', 'CHATO', 'ROLHA', 'GRAMA', 'FIBRA', 'CITAR', 'BOLAS', 'BRASA', 'MILHO', 'PEDIR', 'REFÉM', 'SINAL', 'TREZE', 'VISTA', 'CHAMA', 'AMEBA', 'TELÃO', 'RITMO', 'PADRE', 'MUITO', 'GANHO'];
+  const randomIdx = Math.floor(Math.random() * listaSorteio.length);
+  console.log(listaSorteio[randomIdx]);
+  return listaSorteio[randomIdx];
+}
+const answer = pickAnswer();
 const answerSemAcentos = removeAcentos(answer);
-console.log(answer);
+document.querySelector('.answer').innerText = answer;
 
 // add event listener for all keyboard keys
 const keys = document.querySelectorAll('.key');
@@ -66,10 +71,16 @@ function eraseLetter() {
   }
 }
 
+function displayPalavraInvalida() {
+  const msg = document.querySelector('.invalido');
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 3000);
+}
+
 function enterWord() {
   const firstEmpty = getActiveSquare(); // undefined for last row
   if (firstEmpty && firstEmpty.id % 5 !== 0) {
-    alert('palavra inválida');
+    displayPalavraInvalida();
     return;
   }
   const row = firstEmpty == undefined? 5 : firstEmpty.id/5 - 1;
@@ -78,18 +89,18 @@ function enterWord() {
   if (guess === answerSemAcentos) {
     guesses.push(guess);
     displayColors(guess, row);
-    setTimeout(() => alert('Ganhou!'), 100);
+    setTimeout(() => document.querySelector('.answer').classList.remove('hidden'), 100);
     return;
   }
 
   if (!validWordList.includes(guess) && !wordListComAcentoSemAcento.includes(guess)) {
-    alert('palavra inválida');
+    displayPalavraInvalida();
     return;
   } else {
     guesses.push(guess);
     displayColors(guess, row);
     if (guesses.length === 6) {
-      setTimeout(() => alert(`Resposta: ${answer}`), 100);
+      setTimeout(() => document.querySelector('.answer').classList.remove('hidden'), 100);
     }
   }
 }
@@ -199,7 +210,12 @@ closeInstructionsButton.addEventListener('click', toggleInstructions);
 
 
 function toggleInstructions() {
-  console.log('toggling instructions')
   const instructions = document.querySelector('.instructions');
-  instructions.classList.toggle('hidden');
+  if (instructions.classList.contains('drop-down')) {
+    instructions.classList.remove('drop-down');
+    instructions.classList.add('up');
+  } else {
+    instructions.classList.remove('up');
+    instructions.classList.add('drop-down');
+  }
 }

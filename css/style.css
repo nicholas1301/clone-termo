@@ -17,14 +17,88 @@ main {
   height: 100vh;
 }
 
+.answer {
+  background-color: black;
+  color: white;
+  width: 20%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  position: absolute;
+  top: 80px;
+}
+
+.invalido {
+  background-color: black;
+  color: white;
+  width: 25%;
+  min-width: 160px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  position: absolute;
+  top: 80px;
+  opacity: 0;
+}
+
+.show {
+  animation: displayBriefly 3s forwards;
+}
+
+@keyframes displayBriefly {
+  0% {opacity: 0;}
+  5% {opacity: 1;}
+  50% {opacity: 1;}
+  100%  {opacity: 0;}
+}
+
 .instructions {
   position: absolute;
+  top: -100vh;
   background: white;
   height: 100vh;
   max-width: 600px;
   font-weight: 400;
+  z-index: -1;
+  padding: 15px;
+  opacity: 0;
+}
+
+.drop-down {
   z-index: 1;
-  padding: 5px;
+  animation: drop .6s forwards;
+}
+
+.up {
+  animation: up .6s forwards;
+}
+
+@keyframes drop {
+  0% {
+    top: -100vh;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes up {
+  0% {
+    z-index: 1;
+    top: 0;
+    opacity: 1;
+  }
+  100% {
+    z-index: -1;
+    top: -100vh;
+    opacity: 0;
+  }
 }
 
 .instructions__header {
@@ -40,10 +114,6 @@ main {
 
 .example-row {
   display: flex;
-}
-
-.hidden {
-  display: none;
 }
 
 header {
@@ -157,4 +227,18 @@ header {
 
 #show-instructions {
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeout {
+  from {opacity: 1}
+  to {opacity: 0}
+}
+
+@keyframes fadein {
+  from {opacity: 0}
+  to {opacity: 1}
 }
