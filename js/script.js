@@ -13,7 +13,6 @@ function pickAnswer() {
 }
 const answer = pickAnswer();
 const answerSemAcentos = removeAcentos(answer);
-// document.querySelector('.answer').innerText = answer;
 
 // add event listener for all keyboard keys
 const keys = document.querySelectorAll('.key');
