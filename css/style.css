@@ -17,6 +17,35 @@ main {
   height: 100vh;
 }
 
+.instructions {
+  position: absolute;
+  background: white;
+  height: 100vh;
+  max-width: 600px;
+  font-weight: 400;
+  z-index: 1;
+  padding: 5px;
+}
+
+.instructions__header {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.instructions__title {
+  font-weight: bold;
+}
+
+.example-row {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
 header {
   width: 100%;
   max-width: 450px;
@@ -53,7 +82,6 @@ header {
   align-items: center;
   font-size: 28px;
   border: 2px solid  #D3D6DA;
-
 }
 
 .keyboard {
@@ -109,3 +137,24 @@ header {
   border: 2px solid #C9B458;
 }
 
+.example-row {
+  width: 50%;
+  font-weight: 800;
+}
+
+.ex-square {
+  width: 17%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  border: 2px solid  #D3D6DA;
+}
+
+#close-instructions {
+  cursor: pointer;
+}
+
+#show-instructions {
+  cursor: pointer;
+}

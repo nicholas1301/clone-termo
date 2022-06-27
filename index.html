@@ -9,8 +9,54 @@
 </head>
 <body>
   <main>
+    <div class="instructions hidden">
+      <div class="instructions__header">
+        <div class="instructions__title">COMO JOGAR</div>
+        <div><img src="imgs/close.png" id="close-instructions" width="20px" alt=""></div>
+      </div>
+      <p> 
+        Descobre o <strong>TERMO</strong> do dia em 6 tentativas. 
+      </p>
+      <p> 
+        Cada tentativa tem de ser uma palavra de 5 letras. Usa o botão Enter para submeter.
+      </p>
+      <p> 
+        Depois de cada tentativa, a cor dos quadrados irá mudar de acordo com os seguintes exemplos: 
+      </p>
+
+      <hr>
+      <div class="game-row example-row">
+        <div class="ex-square green">T</div>
+        <div class="ex-square">E</div>
+        <div class="ex-square">R</div>
+        <div class="ex-square">M</div>
+        <div class="ex-square">O</div>
+      </div>
+      <p>A letra <strong>T</strong> está na palavra e na posição correta.</p>
+
+      <div class="game-row example-row">
+        <div class="ex-square">C</div>
+        <div class="ex-square">A</div>
+        <div class="ex-square yellow">S</div>
+        <div class="ex-square">A</div>
+        <div class="ex-square">L</div>
+      </div>
+      <p>A letra <strong>S</strong> está na palavra, mas na posição errada.</p>
+
+      <div class="game-row example-row">
+        <div class="ex-square">P</div>
+        <div class="ex-square">O</div>
+        <div class="ex-square">S</div>
+        <div class="ex-square">T</div>
+        <div class="ex-square grey">E</div>
+      </div>
+      <p>A letra <strong>E</strong> não faz parte da palavra.</p>
+
+      <hr>
+
+    </div>
     <header>
-      <div class="question-mark"><img src="imgs/question-mark.png" width="20px" alt=""></div>
+      <div class="question-mark"><img src="imgs/question-mark.png" id="show-instructions" width="20px" alt=""></div>
       <div class="title">TERMO</div>
       <div class="settings"> <img src="imgs/settings.png" width="20px" alt=""> </div>
     </header>

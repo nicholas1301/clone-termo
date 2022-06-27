@@ -1,5 +1,6 @@
 // TO DO:
-// answer = 'GATOS', 'CASAS' => ambos os As ficam amarelos
+// bug: submit palavras iguais
+// condição de perdeu o jogo
 // popup de instruções
 // animações
 // criar uma lista limitada para sorteio
@@ -22,15 +23,15 @@ const guesses = [];
 
 function keyPress(event) {
 
-  if (guesses.includes(answerSemAcentos)) return;
+  if (guesses.includes(answerSemAcentos) || guesses.length === 6) return;
 
   const letter = event.target.innerText;
   const activeSquare = getActiveSquare();
-  const row = Math.floor(activeSquare.id / 5);
+  const row = activeSquare == undefined? 5 : Math.floor(activeSquare.id / 5);
   const isBackspace = event.target.id === 'backspace' || event.target.nodeName === 'IMG';
 
-  // 
-  if (activeSquare.id % 5 === 0 && activeSquare.id > 0) {
+  // lock keyboard when row is complete, only allow enter or backspace
+  if (activeSquare == undefined || (activeSquare.id % 5 === 0 && activeSquare.id > 0) ) {
     if (guesses.length < row && event.target.id !== 'enter' && !isBackspace)
       return;
   } 
@@ -52,7 +53,9 @@ function keyPress(event) {
 function getActiveSquare() {
   const allSquares = [...document.querySelectorAll('.game-square')];
   for (let i = 0; i < 30; i++) {
-    if (allSquares[i].innerText == '') return allSquares[i];
+    if (allSquares[i].innerText == '') {
+      return allSquares[i];
+    }
   }
 }
 
@@ -67,17 +70,18 @@ function eraseLetter() {
 }
 
 function enterWord() {
-  const firstEmpty = getActiveSquare();
-  if (firstEmpty.id % 5 !== 0) {
+  const firstEmpty = getActiveSquare(); // undefined for last row
+  if (firstEmpty && firstEmpty.id % 5 !== 0) {
     alert('palavra inválida');
     return;
   }
-  const row = firstEmpty.id/5 - 1;
+  const row = firstEmpty == undefined? 5 : firstEmpty.id/5 - 1;
   const guess = getGuess();
-
+  console.log(guess);
   if (guess === answerSemAcentos) {
     guesses.push(guess);
     displayColors(guess, row);
+    setTimeout(() => alert('Ganhou!'), 100);
     return;
   }
 
@@ -85,14 +89,17 @@ function enterWord() {
     alert('palavra inválida');
     return;
   } else {
-    if (!guesses.includes(guess)) guesses.push(guess);
+    guesses.push(guess);
     displayColors(guess, row);
+    if (guesses.length === 6) {
+      setTimeout(() => alert(`Resposta: ${answer}`), 100);
+    }
   }
 }
 
 function getGuess() {
   const firstEmpty = getActiveSquare();
-  const firstEmptyId = firstEmpty.id;
+  const firstEmptyId = firstEmpty == undefined? 30 : firstEmpty.id;
   let guess = '';
   for (let i = firstEmptyId - 5; i < firstEmptyId; i++) {
     const square = document.getElementById(`${i}`);
@@ -103,7 +110,6 @@ function getGuess() {
 
 function displayColors(guess, row) {
   const squares = getSquares(row);
-  const guessSemAcento = removeAcentos(guess);
   const guessComAcento = recoverAcentos(guess);
 
   if (hasAcento(guessComAcento)) {
@@ -186,4 +192,17 @@ function recoverAcentos(word) {
   } else {
     return word;
   }
+}
+
+const openInstructionsButton = document.getElementById('show-instructions');
+openInstructionsButton.addEventListener('click', toggleInstructions);
+
+const closeInstructionsButton = document.getElementById('close-instructions');
+closeInstructionsButton.addEventListener('click', toggleInstructions);
+
+
+function toggleInstructions() {
+  console.log('toggling instructions')
+  const instructions = document.querySelector('.instructions');
+  instructions.classList.toggle('hidden');
 }
