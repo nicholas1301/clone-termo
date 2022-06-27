@@ -125,16 +125,16 @@ header {
   border: 2px solid #787C7E;
 }
 
-.green {
-  background-color: #6AAA64;
-  color: white;
-  border: 2px solid #6AAA64;
-}
-
 .yellow {
   background-color: #C9B458;
   color: white;
   border: 2px solid #C9B458;
+}
+
+.green {
+  background-color: #6AAA64;
+  color: white;
+  border: 2px solid #6AAA64;
 }
 
 .example-row {

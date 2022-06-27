@@ -1,7 +1,4 @@
 // TO DO:
-// bug: submit palavras iguais
-// condição de perdeu o jogo
-// popup de instruções
 // animações
 // criar uma lista limitada para sorteio
 
