@@ -97,7 +97,7 @@ function enterWord() {
     guesses.push(guess);
     displayColors(guess, row);
     if (guesses.length === 6) {
-      setTimeout(() => document.querySelector('.answer').classList.remove('hidden'), 100);
+      showAnswer();
     }
   }
 }
