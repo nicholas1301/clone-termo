@@ -8,7 +8,6 @@ const wordListComAcentoSemAcento = wordListComAcento.map(word => removeAcentos(w
 function pickAnswer() {
   const listaSorteio = ['GATOS', 'VIDAS', 'LEÕES', 'MARCA', 'TRAPO', 'LINDO', 'VERDE', 'PRETO', 'FRUTA', 'ÚTERO', 'BARRA', 'COBRE', 'CORPO', 'FOCAR', 'HUMOR', 'MORRO', 'VOGAL', 'CHATO', 'ROLHA', 'GRAMA', 'FIBRA', 'CITAR', 'BOLAS', 'BRASA', 'MILHO', 'PEDIR', 'REFÉM', 'SINAL', 'TREZE', 'VISTA', 'CHAMA', 'AMEBA', 'TELÃO', 'RITMO', 'PADRE', 'MUITO', 'GANHO'];
   const randomIdx = Math.floor(Math.random() * listaSorteio.length);
-  console.log(listaSorteio[randomIdx]);
   return listaSorteio[randomIdx];
 }
 const answer = pickAnswer();
